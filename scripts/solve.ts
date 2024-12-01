@@ -4,6 +4,7 @@ import { formatPerformance, withPerformance, isBetween } from './utils.ts'
 import { scaffold } from './scaffold.ts'
 
 const day = parseInt(argv[2] ?? '')
+const file = argv[3] ?? 'input'
 const year = parseInt(process.env.YEAR ?? new Date().getFullYear())
 
 if (!isBetween(day, [1, 25])) {
@@ -16,7 +17,7 @@ await scaffold(day, year)
 
 const name = `${day}`.padStart(2, '0')
 
-const { default: input } = await import(`@/${name}/input.txt`)
+const { default: input } = await import(`@/${name}/${file}.txt`)
 const { partOne, partTwo, parse } = await import(`@/${name}/${name}.ts`)
 
 const [one, onePerformance] = withPerformance(() => partOne?.(parse(input)))
